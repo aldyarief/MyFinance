@@ -41,7 +41,7 @@ class Login : AppCompatActivity() {
                         val hasil = response.body()?.pesan
 
                         if (hasil.equals("OK")) {
-                            val intent = Intent(this@Login,Dashboard ::class.java)
+                            val intent = Intent(this@Login,Transaksi ::class.java)
                             startActivity(intent)
                             finish()
                         }
