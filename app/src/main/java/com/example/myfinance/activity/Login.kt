@@ -1,5 +1,6 @@
 package com.example.myfinance.activity
 
+import android.content.Intent
 import androidx.appcompat.app.AppCompatActivity
 import android.os.Bundle
 import android.util.Log
@@ -40,7 +41,9 @@ class Login : AppCompatActivity() {
                         val hasil = response.body()?.pesan
 
                         if (hasil.equals("OK")) {
-                            Toast.makeText(this@Login, "Selamat Datang $username", Toast.LENGTH_SHORT).show()
+                            val intent = Intent(this@Login,Dashboard ::class.java)
+                            startActivity(intent)
+                            finish()
                         }
 
                     }
