@@ -13,9 +13,9 @@
         android:supportsRtl="true"
         android:theme="@style/Theme.MyFinance"
         android:usesCleartextTraffic="true">
-        <activity android:name=".activity.Transaksi"></activity>
-        <activity android:name=".activity.Kategori" />
+        <activity android:name=".activity.Kategori"></activity>
         <activity android:name=".activity.Dashboard" />
+        <activity android:name=".activity.Transaksi" />
         <activity android:name=".activity.Login" />
         <activity android:name=".MainActivity" />
         <activity android:name=".activity.MainMenu">
