@@ -43,7 +43,7 @@
             android:layout_width="match_parent"
             android:layout_height="wrap_content"
             android:hint="Username"
-            android:textColor="#807f7f"
+            android:textColor="@color/white"
             android:layout_below="@+id/txtLogo"
             android:layout_marginTop="30dp" />
 
@@ -54,7 +54,7 @@
             android:layout_width="match_parent"
             android:layout_height="wrap_content"
             android:hint="Password"
-            android:textColor="#807f7f"
+            android:textColor="@color/white"
             android:inputType="textPassword"
             android:layout_below="@+id/username"
             android:layout_marginTop="10dp" />

@@ -17,13 +17,14 @@
         android:layout_width="match_parent"
         android:layout_height="wrap_content"
         android:hint="Nama Kategori"
+        android:inputType="textCapWords"
         android:textColor="#807f7f" />
 
     <Spinner
         android:id="@+id/SpinKat"
         android:layout_width="match_parent"
         android:layout_height="wrap_content"
-        android:textSize="18sp"
+        android:textSize="25sp"
         app:fontFamily="sans-serif"
         android:layout_below="@id/namkat">
     </Spinner>
