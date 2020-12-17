@@ -7,7 +7,13 @@ import retrofit2.http.*
 interface Service {
 
     @FormUrlEncoded
-    @POST("mykasirku/showlogin.php?")
+    @POST("myfinance/showlogin.php?")
     fun getShowLogin(@Field("username") username : String,
                      @Field("password") password : String): Call<Login>
+
+    @GET("myfinance/showkat.php?")
+    fun getDataKategori(): Call<Kategori>
+
+    @GET("myfinance/showkattrans.php?")
+    fun getDataKattrans(): Call<Kattrans>
 }
