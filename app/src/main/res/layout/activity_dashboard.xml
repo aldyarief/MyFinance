@@ -7,7 +7,7 @@
     tools:context=".activity.Dashboard"
     android:orientation="vertical"
     android:padding="10dp"
-    android:background="#FFFF"
+    android:background="#1A1A37"
     android:gravity="top">
 
     <LinearLayout

@@ -33,7 +33,6 @@ class Kategori : AppCompatActivity() {
         Spinner!!.setOnItemSelectedListener(object : OnItemSelectedListener {
             override fun onItemSelected(parent: AdapterView<*>, view: View, position: Int, id: Long) {
                 val selectedName = parent.getItemAtPosition(position).toString()
-                //                requestDetailDosen(selectedName);
                 IDKAT!!.setText(selectedName)
             }
 

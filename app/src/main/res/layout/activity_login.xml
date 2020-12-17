@@ -6,7 +6,7 @@
     android:layout_width="match_parent"
     android:layout_height="match_parent"
     android:padding="10dp"
-    android:background="#03A9F4"
+    android:background="#1A1A37"
     android:orientation="vertical"
     android:layout_gravity="center_horizontal"
     tools:context=".activity.Login">
@@ -36,39 +36,63 @@
             android:layout_below="@+id/logoImage"
             android:textSize="30sp"/>
 
-        <EditText
-            android:id="@+id/username"
-            android:background="@drawable/backgroud"
-            android:padding="15dp"
+        <com.google.android.material.textfield.TextInputLayout
+            android:id="@+id/user_layout"
             android:layout_width="match_parent"
             android:layout_height="wrap_content"
-            android:hint="Username"
-            android:textColor="@color/white"
-            android:layout_below="@+id/txtLogo"
-            android:layout_marginTop="30dp" />
+            app:layout_constraintEnd_toEndOf="parent"
+            app:layout_constraintStart_toStartOf="parent"
+            app:passwordToggleEnabled="false"
+            android:background="@drawable/backgroud"
+            tools:ignore="MissingConstraints"
+            android:layout_marginTop="10dp">
 
-        <EditText
-            android:id="@+id/password"
-            android:background="@drawable/backgroud"
-            android:padding="15dp"
+            <com.google.android.material.textfield.TextInputEditText
+                android:id="@+id/username"
+                android:layout_width="match_parent"
+                android:layout_height="wrap_content"
+                android:backgroundTint="@color/white"
+                android:hint="Username"
+                android:textColor="@color/black"
+                android:textColorHint="@color/black"
+                android:textSize="15sp"
+                app:fontFamily="sans-serif" />
+        </com.google.android.material.textfield.TextInputLayout>
+        <com.google.android.material.textfield.TextInputLayout
+            android:id="@+id/pass_layout"
             android:layout_width="match_parent"
             android:layout_height="wrap_content"
-            android:hint="Password"
-            android:textColor="@color/white"
-            android:inputType="textPassword"
-            android:layout_below="@+id/username"
-            android:layout_marginTop="10dp" />
+            app:layout_constraintEnd_toEndOf="parent"
+            app:layout_constraintStart_toStartOf="parent"
+            app:passwordToggleEnabled="true"
+            android:background="@drawable/backgroud"
+            tools:ignore="MissingConstraints"
+            android:layout_marginTop="10dp">
+
+            <com.google.android.material.textfield.TextInputEditText
+                android:id="@+id/password"
+                android:layout_width="match_parent"
+                android:layout_height="wrap_content"
+                android:backgroundTint="@color/white"
+                android:hint="Password"
+                android:textColor="@color/black"
+                android:textColorHint="@color/black"
+                android:textSize="15sp"
+                android:inputType="textCapWords"
+                app:fontFamily="sans-serif" />
+        </com.google.android.material.textfield.TextInputLayout>
+
 
         <Button
             android:id="@+id/loginBtn"
             android:layout_width="match_parent"
             android:layout_height="wrap_content"
-            android:layout_below="@+id/password"
+            android:layout_below="@+id/pass_layout"
             android:background="@drawable/backgroud"
             android:padding="15dp"
             android:layout_marginTop="20dp"
             android:textSize="20dp"
-            android:text="Sign In"/>
+            android:text="Masuk"/>
     </LinearLayout>
 
 </RelativeLayout>
