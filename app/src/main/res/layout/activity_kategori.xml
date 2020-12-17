@@ -28,4 +28,11 @@
         app:fontFamily="sans-serif"
         android:layout_below="@id/namkat">
     </Spinner>
+
+    <TextView
+        android:layout_width="wrap_content"
+        android:layout_height="wrap_content"
+        android:layout_below="@+id/SpinKat"
+        android:id="@+id/idkat">
+    </TextView>
 </RelativeLayout>

@@ -2,11 +2,11 @@ package com.example.myfinance.activity
 
 import android.os.Bundle
 import android.util.Log
-import android.widget.ArrayAdapter
-import android.widget.Spinner
+import android.view.View
+import android.widget.*
+import android.widget.AdapterView.OnItemSelectedListener
 import androidx.appcompat.app.AppCompatActivity
 import com.example.myfinance.R
-import com.example.myfinance.data.HasildataItem
 import com.example.myfinance.data.HasilnyaItem
 import com.example.myfinance.data.Kattrans
 import com.example.myfinance.network.ConfigNetwork
@@ -15,16 +15,30 @@ import retrofit2.Callback
 import retrofit2.Response
 import java.util.*
 
+
 class Kategori : AppCompatActivity() {
     var server : String? = null
     var Spinner: Spinner? = null
+    var IDKAT: TextView? = null
 
     override fun onCreate(savedInstanceState: Bundle?) {
         super.onCreate(savedInstanceState)
         setContentView(R.layout.activity_kategori)
         server = "http://aldry.agustianra.my.id/"
         Spinner= findViewById(R.id.SpinKat) as Spinner
+        IDKAT = findViewById(R.id.idkat) as TextView
         AmbilKat()
+
+
+        Spinner!!.setOnItemSelectedListener(object : OnItemSelectedListener {
+            override fun onItemSelected(parent: AdapterView<*>, view: View, position: Int, id: Long) {
+                val selectedName = parent.getItemAtPosition(position).toString()
+                //                requestDetailDosen(selectedName);
+                IDKAT!!.setText(selectedName)
+            }
+
+            override fun onNothingSelected(parent: AdapterView<*>?) {}
+        })
     }
 
     fun AmbilKat() {
