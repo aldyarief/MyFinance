@@ -40,12 +40,15 @@ class Kategori : AppCompatActivity() {
         btnSimpan = findViewById(R.id.SimpanBtn) as Button
         btnClose = findViewById(R.id.CloseBtn) as Button
         btnShow = findViewById(R.id.Showbtn) as Button
+        action=""
         AmbilKat()
 
         btnSimpan!!.setOnClickListener {
             val namkat = edkat!!.text.toString().trim { it <= ' ' }
             val kattrans = IDKAT!!.text.toString().trim { it <= ' ' }
-            action = "insertdata"
+            if (action.equals("")) {
+                action = "insertdata"
+            }
 
             ConfigNetwork.getRetrofit(server!!).getInsertKat(action!!,namkat!!,kattrans!!).enqueue(object : Callback<com.example.myfinance.data.CrudKategori> {
                 override fun onResponse(call: Call<CrudKategori>, response: Response<CrudKategori>) {
