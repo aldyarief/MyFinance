@@ -16,4 +16,15 @@ interface Service {
 
     @GET("myfinance/showkattrans.php?")
     fun getDataKattrans(): Call<Kattrans>
+
+    @FormUrlEncoded
+    @POST("myfinance/kategori.php?")
+    fun getInsertKat(@Field("action") action : String,
+                     @Field("nama") password : String,
+                     @Field("kattrans") kattrans : String): Call<CrudKategori>
+
+    @GET("myfinance/showkategori.php?")
+    fun getDataKat(): Call<ShowKategori>
+
+
 }

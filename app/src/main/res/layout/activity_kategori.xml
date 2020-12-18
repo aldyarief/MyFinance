@@ -41,16 +41,29 @@
         android:id="@+id/menu1"
         android:padding="10dp">
 
-        <EditText
-            android:id="@+id/namkat"
-            android:background="@drawable/backgroud"
-            android:padding="15dp"
+        <com.google.android.material.textfield.TextInputLayout
+            android:id="@+id/namkat_layout"
             android:layout_width="match_parent"
             android:layout_height="wrap_content"
-            android:hint="Nama Kategori"
-            android:textColorHint="@color/white"
-            android:inputType="textCapWords"
-            android:textColor="#807f7f" />
+            app:layout_constraintEnd_toEndOf="parent"
+            app:layout_constraintStart_toStartOf="parent"
+            app:passwordToggleEnabled="false"
+            android:background="@drawable/backgroud"
+            tools:ignore="MissingConstraints"
+            android:layout_marginTop="10dp">
+
+            <com.google.android.material.textfield.TextInputEditText
+                android:id="@+id/namkat"
+                android:layout_width="match_parent"
+                android:layout_height="wrap_content"
+                android:backgroundTint="@color/white"
+                android:hint="Nama Kategori"
+                android:textColor="@color/black"
+                android:textColorHint="@color/black"
+                android:textSize="15sp"
+                android:inputType="textCapWords"
+                app:fontFamily="sans-serif" />
+        </com.google.android.material.textfield.TextInputLayout>
 
         <TextView
             android:id="@+id/judulakun"
@@ -105,6 +118,7 @@
         android:layout_height="wrap_content"
         android:orientation="horizontal"
         android:padding="20dp"
+        android:id="@+id/menu2"
         android:layout_below="@+id/menu1">
 
         <Button
@@ -131,5 +145,22 @@
             android:text="Keluar"
             android:textSize="20dp"
             app:backgroundTint="#DA1111" />
+    </LinearLayout>
+    <LinearLayout
+        android:layout_width="match_parent"
+        android:layout_height="wrap_content"
+        android:layout_below="@+id/menu2"
+        android:padding="10dp"
+        android:orientation="horizontal">
+        <Button
+            android:id="@+id/Showbtn"
+            android:layout_width="match_parent"
+            android:layout_height="wrap_content"
+            android:layout_marginTop="20dp"
+            android:background="@drawable/backgroud"
+            android:padding="15dp"
+            android:text="Tampilkan Data"
+            android:textSize="20dp"
+            app:backgroundTint="#2196F3" />
     </LinearLayout>
 </RelativeLayout>
