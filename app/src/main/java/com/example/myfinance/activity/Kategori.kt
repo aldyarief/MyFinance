@@ -1,9 +1,9 @@
 package com.example.myfinance.activity
 
+import android.R.attr.name
 import android.content.Intent
 import android.os.Bundle
 import android.util.Log
-import android.view.LayoutInflater
 import android.view.View
 import android.widget.*
 import android.widget.AdapterView.OnItemSelectedListener
@@ -40,44 +40,88 @@ class Kategori : AppCompatActivity() {
         btnSimpan = findViewById(R.id.SimpanBtn) as Button
         btnClose = findViewById(R.id.CloseBtn) as Button
         btnShow = findViewById(R.id.Showbtn) as Button
-        action=""
-        AmbilKat()
+        val namakat: String? = intent.getStringExtra("namakat")
+        val namatrans: String? = intent.getStringExtra("namatrans")
+        val idkat: String? = intent.getStringExtra("idkat")
+        action = intent.getStringExtra("action")
+
+        if (action.equals("editdata")) {
+            action="editdata"
+            IDKAT!!.text = idkat
+            edkat!!.setText(namakat)
+            val kattrans: String = namatrans!!
+            val array = arrayOf(kattrans)
+            val adapter = ArrayAdapter(this@Kategori, android.R.layout.simple_spinner_item, array)
+            adapter.setDropDownViewResource(android.R.layout.simple_spinner_dropdown_item)
+            Spinner!!.setAdapter(adapter)
+
+        } else {
+            action=""
+            AmbilKat()
+        }
+
 
         btnSimpan!!.setOnClickListener {
             val namkat = edkat!!.text.toString().trim { it <= ' ' }
             val kattrans = IDKAT!!.text.toString().trim { it <= ' ' }
+            val katid="-"
             if (action.equals("")) {
                 action = "insertdata"
             }
 
-            ConfigNetwork.getRetrofit(server!!).getInsertKat(action!!,namkat!!,kattrans!!).enqueue(object : Callback<com.example.myfinance.data.CrudKategori> {
-                override fun onResponse(call: Call<CrudKategori>, response: Response<CrudKategori>) {
-                    Log.d("response server", response.message())
+            if (action.equals("insertdata")) {
 
-                    if (response.isSuccessful) {
-                        val hasilnya = response.body()?.pesan
-                        Toast.makeText(this@Kategori, hasilnya, Toast.LENGTH_SHORT).show()
-                        edkat!!.getText().clear()
-                        action=""
+                ConfigNetwork.getRetrofit(server!!).getInsertKat(action!!, namkat!!, kattrans!!, katid!!).enqueue(object : Callback<com.example.myfinance.data.CrudKategori> {
+                    override fun onResponse(call: Call<CrudKategori>, response: Response<CrudKategori>) {
+                        Log.d("response server", response.message())
 
+                        if (response.isSuccessful) {
+                            val hasilnya = response.body()?.pesan
+                            Toast.makeText(this@Kategori, hasilnya, Toast.LENGTH_SHORT).show()
+                            edkat!!.getText().clear()
+                            action = ""
+
+                        }
                     }
-                }
 
-                override fun onFailure(call: Call<CrudKategori>, t: Throwable) {
-                    Log.d("response server", t.message!!)
-                }
+                    override fun onFailure(call: Call<CrudKategori>, t: Throwable) {
+                        Log.d("response server", t.message!!)
+                    }
 
-            })
+                })
+            } else if (action.equals("editdata")) {
+                val namkat = edkat!!.text.toString().trim { it <= ' ' }
+                val kattrans = IDKAT!!.text.toString().trim { it <= ' ' }
+                val katid=idkat
+                ConfigNetwork.getRetrofit(server!!).getEditKat(action!!, namkat!!, kattrans!!, katid!!).enqueue(object : Callback<com.example.myfinance.data.CrudKategori> {
+                    override fun onResponse(call: Call<CrudKategori>, response: Response<CrudKategori>) {
+                        Log.d("response server", response.message())
+
+                        if (response.isSuccessful) {
+                            val hasilnya = response.body()?.pesan
+                            Toast.makeText(this@Kategori, hasilnya, Toast.LENGTH_SHORT).show()
+                            edkat!!.getText().clear()
+                            action = ""
+
+                        }
+                    }
+
+                    override fun onFailure(call: Call<CrudKategori>, t: Throwable) {
+                        Log.d("response server", t.message!!)
+                    }
+
+                })
+            }
         }
 
         btnClose!!.setOnClickListener {
-            val intent = Intent(this@Kategori,Dashboard ::class.java)
+            val intent = Intent(this@Kategori, Dashboard::class.java)
             startActivity(intent)
             finish()
         }
 
         btnShow!!.setOnClickListener {
-            val intent = Intent(this@Kategori,KategoriDetail ::class.java)
+            val intent = Intent(this@Kategori, KategoriDetail::class.java)
             startActivity(intent)
             finish()
         }
@@ -103,7 +147,7 @@ class Kategori : AppCompatActivity() {
                         DataKat[i]!!.namakat?.let { listSpinner.add(it) }
                     }
 
-                    val adapter = ArrayAdapter(this@Kategori,android.R.layout.simple_spinner_item, listSpinner)
+                    val adapter = ArrayAdapter(this@Kategori, android.R.layout.simple_spinner_item, listSpinner)
                     adapter.setDropDownViewResource(android.R.layout.simple_spinner_dropdown_item)
                     Spinner!!.setAdapter(adapter)
 
@@ -119,7 +163,7 @@ class Kategori : AppCompatActivity() {
     }
 
     override fun onBackPressed() {
-        val intent = Intent(this@Kategori,Dashboard ::class.java)
+        val intent = Intent(this@Kategori, Dashboard::class.java)
         startActivity(intent)
         finish()
     }

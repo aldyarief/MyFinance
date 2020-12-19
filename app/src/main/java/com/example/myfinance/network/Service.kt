@@ -21,7 +21,22 @@ interface Service {
     @POST("myfinance/kategori.php?")
     fun getInsertKat(@Field("action") action : String,
                      @Field("nama") password : String,
-                     @Field("kattrans") kattrans : String): Call<CrudKategori>
+                     @Field("kattrans") kattrans : String,
+                     @Field("katid") katid : String): Call<CrudKategori>
+
+
+    @FormUrlEncoded
+    @POST("myfinance/kategori.php?")
+    fun getEditKat  (@Field("action") action : String,
+                     @Field("nama") password : String,
+                     @Field("kattrans") kattrans : String,
+                     @Field("katid") katid : String): Call<CrudKategori>
+    @FormUrlEncoded
+    @POST("myfinance/kategori.php?")
+    fun getDeleteKat(@Field("action") action : String,
+                     @Field("nama") password : String,
+                     @Field("kattrans") kattrans : String,
+                     @Field("katid") katid : String): Call<CrudKategori>
 
     @GET("myfinance/showkategori.php?")
     fun getDataKat(): Call<ShowKategori>

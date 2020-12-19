@@ -123,27 +123,27 @@
 
         <Button
             android:id="@+id/SimpanBtn"
-            android:layout_width="175dp"
+            android:layout_width="165dp"
             android:layout_height="wrap_content"
             android:layout_below="@+id/password"
             android:layout_marginTop="20dp"
-            android:layout_marginRight="20dp"
+            android:layout_marginRight="18dp"
             android:background="@drawable/backgroud"
-            android:padding="15dp"
+            android:padding="10dp"
             android:text="Simpan"
-            android:textSize="20dp"
+            android:textSize="18dp"
             app:backgroundTint="#FF9800" />
 
         <Button
             android:id="@+id/CloseBtn"
-            android:layout_width="175dp"
+            android:layout_width="165dp"
             android:layout_height="wrap_content"
             android:layout_below="@+id/password"
             android:layout_marginTop="20dp"
             android:background="@drawable/backgroud"
-            android:padding="15dp"
+            android:padding="10dp"
             android:text="Keluar"
-            android:textSize="20dp"
+            android:textSize="18dp"
             app:backgroundTint="#DA1111" />
     </LinearLayout>
     <LinearLayout
