@@ -108,7 +108,7 @@
                 android:textColor="@color/black"
                 android:textColorHint="@color/black"
                 android:textSize="15sp"
-                android:inputType="number"
+                android:inputType="numberDecimal"
                 app:fontFamily="sans-serif" />
         </com.google.android.material.textfield.TextInputLayout>
     </LinearLayout>
