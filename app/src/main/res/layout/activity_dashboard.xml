@@ -184,6 +184,7 @@
         android:layout_height="wrap_content"
         android:textStyle="bold"
         android:gravity="center"
+        android:id="@+id/total"
         android:text="Total Earning :"
         android:textSize="30sp"
         android:textColor="#F4030B"
