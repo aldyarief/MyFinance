@@ -11,8 +11,11 @@ interface Service {
     fun getShowLogin(@Field("username") username : String,
                      @Field("password") password : String): Call<Login>
 
-    @GET("myfinance/showkat.php?")
-    fun getDataKategori(): Call<Kategori>
+   // @GET("myfinance/showkat.php?")
+    //fun getDataKategori(): Call<Kategori>
+
+    @GET("myfinance/showkategori.php?")
+    fun getDataKat(): Call<ShowKategori>
 
     @GET("myfinance/showkattrans.php?")
     fun getDataKattrans(): Call<Kattrans>
@@ -38,8 +41,7 @@ interface Service {
                      @Field("kattrans") kattrans : String,
                      @Field("katid") katid : String): Call<CrudKategori>
 
-    @GET("myfinance/showkategori.php?")
-    fun getDataKat(): Call<ShowKategori>
+
 
 
 }
