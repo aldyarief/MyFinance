@@ -30,6 +30,8 @@
             android:layout_gravity="center"
             android:background="#0347F4"/>
     </LinearLayout>
+
+
     <TextView
         android:id="@+id/judulakun"
         android:layout_width="match_parent"
