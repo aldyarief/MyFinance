@@ -1,6 +1,5 @@
 package com.example.myfinance.activity
 
-import android.R.attr.name
 import android.content.Intent
 import android.os.Bundle
 import android.util.Log
@@ -22,48 +21,58 @@ import java.util.*
 
 class Kategori : AppCompatActivity() {
     var server : String? = null
-    var Spinner: Spinner? = null
-    var IDKAT: TextView? = null
     var edkat: EditText? = null
     var btnSimpan : Button? = null
     var btnClose : Button? = null
     var btnShow : Button? = null
     var action : String? = null
+    var income : RadioButton? = null
+    var expenses : RadioButton? = null
+    var kattrans : String? = null
 
     override fun onCreate(savedInstanceState: Bundle?) {
         super.onCreate(savedInstanceState)
         setContentView(R.layout.activity_kategori)
         server = "http://aldry.agustianra.my.id/"
-        Spinner= findViewById(R.id.SpinKat) as Spinner
-        IDKAT = findViewById(R.id.idkat) as TextView
         edkat = findViewById(R.id.namkat) as EditText
         btnSimpan = findViewById(R.id.SimpanBtn) as Button
         btnClose = findViewById(R.id.CloseBtn) as Button
         btnShow = findViewById(R.id.Showbtn) as Button
+        income = findViewById(R.id.income) as RadioButton
+        expenses = findViewById(R.id.expenses) as RadioButton
         val namakat: String? = intent.getStringExtra("namakat")
-        val namatrans: String? = intent.getStringExtra("namatrans")
         val idkat: String? = intent.getStringExtra("idkat")
         action = intent.getStringExtra("action")
 
         if (action.equals("editdata")) {
             action="editdata"
-            IDKAT!!.text = idkat
+
+            if (idkat.equals("1") ){
+                income!!.isChecked = true
+                expenses!!.isChecked = false
+            } else {
+                expenses!!.isChecked = true
+                income!!.isChecked = false
+            }
             edkat!!.setText(namakat)
-            val kattrans: String = namatrans!!
-            val array = arrayOf(kattrans)
-            val adapter = ArrayAdapter(this@Kategori, android.R.layout.simple_spinner_item, array)
-            adapter.setDropDownViewResource(android.R.layout.simple_spinner_dropdown_item)
-            Spinner!!.setAdapter(adapter)
 
         } else {
             action=""
-            AmbilKat()
         }
 
 
         btnSimpan!!.setOnClickListener {
             val namkat = edkat!!.text.toString().trim { it <= ' ' }
-            val kattrans = IDKAT!!.text.toString().trim { it <= ' ' }
+
+            if (income!!.isChecked) {
+                kattrans = 1.toString()
+            } else if (expenses!!.isChecked) {
+                kattrans = 2.toString()
+            } else {
+                Toast.makeText(this@Kategori, "Akun tidak dipilih", Toast.LENGTH_SHORT).show()
+                income!!.requestFocus()
+            }
+
             val katid="-"
             if (action.equals("")) {
                 action = "insertdata"
@@ -91,7 +100,14 @@ class Kategori : AppCompatActivity() {
                 })
             } else if (action.equals("editdata")) {
                 val namkat = edkat!!.text.toString().trim { it <= ' ' }
-                val kattrans = IDKAT!!.text.toString().trim { it <= ' ' }
+                if (income!!.isChecked) {
+                    kattrans = 1.toString()
+                } else if (expenses!!.isChecked) {
+                    kattrans = 2.toString()
+                } else {
+                    Toast.makeText(this@Kategori, "Akun tidak dipilih atau dipilih lebih dari satu!", Toast.LENGTH_SHORT).show()
+                    income!!.requestFocus()
+                }
                 val katid=idkat
                 ConfigNetwork.getRetrofit(server!!).getEditKat(action!!, namkat!!, kattrans!!, katid!!).enqueue(object : Callback<com.example.myfinance.data.CrudKategori> {
                     override fun onResponse(call: Call<CrudKategori>, response: Response<CrudKategori>) {
@@ -126,40 +142,6 @@ class Kategori : AppCompatActivity() {
             finish()
         }
 
-        Spinner!!.setOnItemSelectedListener(object : OnItemSelectedListener {
-            override fun onItemSelected(parent: AdapterView<*>, view: View, position: Int, id: Long) {
-                val selectedName = parent.getItemAtPosition(position).toString()
-                IDKAT!!.setText(selectedName)
-            }
-
-            override fun onNothingSelected(parent: AdapterView<*>?) {}
-        })
-    }
-
-    fun AmbilKat() {
-        ConfigNetwork.getRetrofit(server!!).getDataKattrans().enqueue(object : Callback<Kattrans> {
-            override fun onResponse(call: Call<Kattrans>, response: Response<Kattrans>) {
-                if (response.isSuccessful) {
-
-                    val DataKat: List<HasilnyaItem?>? = response.body()?.hasilnya
-                    val listSpinner: MutableList<String> = ArrayList()
-                    for (i in DataKat!!.indices) {
-                        DataKat[i]!!.namakat?.let { listSpinner.add(it) }
-                    }
-
-                    val adapter = ArrayAdapter(this@Kategori, android.R.layout.simple_spinner_item, listSpinner)
-                    adapter.setDropDownViewResource(android.R.layout.simple_spinner_dropdown_item)
-                    Spinner!!.setAdapter(adapter)
-
-                }
-            }
-
-            override fun onFailure(call: Call<Kattrans>, t: Throwable) {
-                Log.d("response server", t.message!!)
-            }
-
-
-        })
     }
 
     override fun onBackPressed() {

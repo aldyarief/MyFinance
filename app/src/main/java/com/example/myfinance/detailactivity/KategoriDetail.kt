@@ -116,7 +116,6 @@ class KategoriDetail : AppCompatActivity(), OnEditItemClikListener, OnDeleteItem
     override fun onItemClick(item: KategorinyaItem?, position: Int) {
         val intent = Intent(this@KategoriDetail, Kategori::class.java)
         intent.putExtra("namakat", item?.namakat)
-        intent.putExtra("namatrans", item?.namakattrans)
         intent.putExtra("idkat", item?.kategoriId)
         intent.putExtra("action", "editdata")
         startActivity(intent)

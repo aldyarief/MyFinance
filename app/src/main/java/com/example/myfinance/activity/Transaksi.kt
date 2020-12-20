@@ -1,16 +1,16 @@
 package com.example.myfinance.activity
 
+import android.content.Intent
 import android.os.Bundle
 import android.text.Editable
 import android.text.TextWatcher
 import android.util.Log
-import android.widget.ArrayAdapter
-import android.widget.EditText
-import android.widget.Spinner
+import android.view.View
+import android.widget.*
 import androidx.appcompat.app.AppCompatActivity
 import com.example.myfinance.R
-import com.example.myfinance.data.HasilnyaItem
-import com.example.myfinance.data.Kattrans
+import com.example.myfinance.data.*
+import com.example.myfinance.data.Kategori
 import com.example.myfinance.network.ConfigNetwork
 import retrofit2.Call
 import retrofit2.Callback
@@ -24,55 +24,63 @@ class Transaksi : AppCompatActivity() {
     var jmlTrans : EditText? = null
     var server : String? = null
     var Spinner: Spinner? = null
+    var btnSimpan : Button? = null
+    var action : String? = null
+    var katid : TextView? = null
+    var uangnya : String? = null
     override fun onCreate(savedInstanceState: Bundle?) {
         super.onCreate(savedInstanceState)
         setContentView(R.layout.activity_transaksi)
         server = "http://aldry.agustianra.my.id/"
         Spinner= findViewById(R.id.SpinKat) as Spinner
         jmlTrans = findViewById(R.id.jmltrans) as EditText
+        btnSimpan = findViewById(R.id.SimpanBtn) as Button
+        katid = findViewById(R.id.idkat) as TextView
+        action=""
+        AmbilKat()
 
-        jmlTrans!!.addTextChangedListener(object : TextWatcher {
-            private var current = ""
-            override fun beforeTextChanged(p0: CharSequence?, p1: Int, p2: Int, p3: Int) {}
+        btnSimpan!!.setOnClickListener {
+            action="insertdata"
+            val jml = jmlTrans!!.text.toString().trim { it <= ' ' }
+            val namkat = katid!!.text.toString().trim { it <= ' ' }
+            ConfigNetwork.getRetrofit(server!!).getInsertTrans(action!!, namkat!!, jml!!).enqueue(object : Callback<com.example.myfinance.data.CrudTrans> {
+                override fun onResponse(call: Call<CrudTrans>, response: Response<CrudTrans>) {
+                    Log.d("response server", response.message())
 
-            override fun onTextChanged(p0: CharSequence?, p1: Int, p2: Int, p3: Int) {
-            }
+                    if (response.isSuccessful) {
+                        val hasilnya = response.body()?.pesan
+                        Toast.makeText(this@Transaksi, hasilnya, Toast.LENGTH_SHORT).show()
+                        jmlTrans!!.getText().clear()
+                        action = ""
 
-            override fun afterTextChanged(s: Editable?) {
-                if (!s.toString().equals(current)) {
-                    jmlTrans!!.removeTextChangedListener(this)
-                    val local = Locale("id", "id")
-                    val replaceable = String.format("[Rp,.\\s]", NumberFormat.getCurrencyInstance().currency.getSymbol(local))
-                    val cleanString: String = s.toString().replace(replaceable.toRegex(), "")
-                    val parsed: Double
-                    parsed = try {
-                        cleanString.toDouble()
-                    } catch (e: NumberFormatException) {
-                        0.00
                     }
-                    val formatter = NumberFormat.getCurrencyInstance(local)
-                    formatter.maximumFractionDigits = 0
-                    formatter.isParseIntegerOnly = true
-                    val formatted = formatter.format(parsed)
-                    val replace = String.format("[Rp\\s]", NumberFormat.getCurrencyInstance().currency.getSymbol(local))
-                    val clean = formatted.replace(replace.toRegex(), "")
-                    current = formatted
-                    jmlTrans!!.setText(clean)
-                    jmlTrans!!.setSelection(clean.length)
-                    jmlTrans!!.addTextChangedListener(this)
                 }
+
+                override fun onFailure(call: Call<CrudTrans>, t: Throwable) {
+                    Log.d("response server", t.message!!)
+                }
+
+            })
+        }
+
+        Spinner!!.setOnItemSelectedListener(object : AdapterView.OnItemSelectedListener {
+            override fun onItemSelected(parent: AdapterView<*>, view: View, position: Int, id: Long) {
+                val selectedName = parent.getItemAtPosition(position).toString()
+                katid!!.setText(selectedName)
             }
 
+            override fun onNothingSelected(parent: AdapterView<*>?) {}
         })
 
     }
 
     fun AmbilKat() {
-        ConfigNetwork.getRetrofit(server!!).getDataKattrans().enqueue(object : Callback<Kattrans> {
-            override fun onResponse(call: Call<Kattrans>, response: Response<Kattrans>) {
+        ConfigNetwork.getRetrofit(server!!).getDataKategori().enqueue(object : Callback<Kategori> {
+
+            override fun onResponse(call: Call<Kategori>, response: Response<Kategori>) {
                 if (response.isSuccessful) {
 
-                    val DataKat: List<HasilnyaItem?>? = response.body()?.hasilnya
+                    val DataKat: List<HasildataItem?>? = response.body()?.hasildata
                     val listSpinner: MutableList<String> = ArrayList()
                     for (i in DataKat!!.indices) {
                         DataKat[i]!!.namakat?.let { listSpinner.add(it) }
@@ -85,11 +93,17 @@ class Transaksi : AppCompatActivity() {
                 }
             }
 
-            override fun onFailure(call: Call<Kattrans>, t: Throwable) {
+            override fun onFailure(call: Call<Kategori>, t: Throwable) {
                 Log.d("response server", t.message!!)
             }
 
 
         })
+    }
+
+    override fun onBackPressed() {
+        val intent = Intent(this@Transaksi, Dashboard::class.java)
+        startActivity(intent)
+        finish()
     }
 }

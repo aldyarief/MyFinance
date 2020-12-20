@@ -74,7 +74,7 @@ class Dashboard : AppCompatActivity() {
 
     fun AmbilData() {
         val localeID = Locale("in", "ID")
-        val formatRupiah: NumberFormat = NumberFormat.getCurrencyInstance(localeID)
+        val formatRupiah: NumberFormat = NumberFormat.getCurrencyInstance(localeID )
         ConfigNetwork.getRetrofit(server!!).getTotalEarnings().enqueue(object : Callback<ShowEarnings> {
 
             override fun onResponse(call: Call<ShowEarnings>, response: Response<ShowEarnings>) {
@@ -83,7 +83,7 @@ class Dashboard : AppCompatActivity() {
                 if (response.isSuccessful){
                     val datanya = response.body()?.total
                     hasil = datanya!!.toInt()
-                    total!!.setText(formatRupiah.format(hasil))
+                    total!!.text = "Total Keuntungan : ${formatRupiah.format(hasil)}"
                 }
             }
 

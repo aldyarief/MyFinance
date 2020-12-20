@@ -6,7 +6,6 @@
     android:layout_height="match_parent"
     tools:context=".activity.Dashboard"
     android:orientation="vertical"
-    android:padding="10dp"
     android:background="#1A1A37"
     android:gravity="top">
 
@@ -168,28 +167,17 @@
     </LinearLayout>
 
     <TextView
-        android:layout_width="wrap_content"
-        android:layout_height="wrap_content"
-        android:textStyle="bold"
-        android:gravity="left"
-        android:text="Total Earnings :"
-        android:textSize="20sp"
-        android:textColor="#F4030B"
-        android:layout_marginTop="5dp"
-        android:id="@+id/judultot"
-        android:layout_below="@id/menu2"/>
-
-    <TextView
         android:layout_width="match_parent"
         android:layout_height="wrap_content"
         android:textStyle="bold"
         android:gravity="center"
         android:id="@+id/total"
-        android:text="Total Earning :"
+        android:background="#FF9800"
+        android:text="Total Keuntungan :"
         android:textSize="30sp"
-        android:textColor="#F4030B"
+        android:textColor="@color/black"
         android:layout_marginTop="5dp"
-        android:layout_below="@id/judultot"/>
+        android:layout_below="@id/menu2"/>
 
 
 </RelativeLayout>
