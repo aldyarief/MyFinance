@@ -23,6 +23,9 @@ interface Service {
     @GET("myfinance/showearnings.php?")
     fun getTotalEarnings(): Call<ShowEarnings>
 
+    @GET("myfinance/showtrans.php?")
+    fun getDatatrans(): Call<ShowTrans>
+
     @FormUrlEncoded
     @POST("myfinance/kategori.php?")
     fun getInsertKat(@Field("action") action : String,
@@ -48,7 +51,8 @@ interface Service {
     @POST("myfinance/transaksi.php?")
     fun getInsertTrans( @Field("action") action : String,
                         @Field("namkat") namkat : String,
-                        @Field("jml") jml : String): Call<CrudTrans>
+                        @Field("jml") jml : String,
+                        @Field("tgl") tgl: String): Call<CrudTrans>
 
 
 
