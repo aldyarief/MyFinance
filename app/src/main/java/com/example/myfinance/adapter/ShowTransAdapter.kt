@@ -17,7 +17,7 @@ class ShowTransAdapter(var data: List<TransaksinyaItem?>?,
     val itemJumlah = itemView.itemJml
     val itemKategori = itemView.itemKategori
     val itemKattrans = itemView.itemKattrans
-    val itemKatid = itemView.itemKatid
+    val itemTransid = itemView.itemTransid
     val itemDate = itemView.itemDate
     val menudelete = itemView.menudelete
 
@@ -44,7 +44,7 @@ class ShowTransAdapter(var data: List<TransaksinyaItem?>?,
         holder.itemDate.text = data?.get(position)?.tgl
         holder.itemKategori.text = data?.get(position)?.namkat
         holder.itemKattrans.text = data?.get(position)?.kattrans
-        holder.itemKatid.text = data?.get(position)?.transId
+        holder.itemTransid.text = data?.get(position)?.transId
         holder.initialize(data?.get(position),deleteClick)
     }
 

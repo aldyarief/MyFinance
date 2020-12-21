@@ -52,7 +52,17 @@ interface Service {
     fun getInsertTrans( @Field("action") action : String,
                         @Field("namkat") namkat : String,
                         @Field("jml") jml : String,
-                        @Field("tgl") tgl: String): Call<CrudTrans>
+                        @Field("tgl") tgl: String,
+                        @Field("idtrans") idtrans : String): Call<CrudTrans>
+
+
+    @FormUrlEncoded
+    @POST("myfinance/transaksi.php?")
+    fun getDeleteTrans( @Field("action") action : String,
+                        @Field("namkat") namkat : String,
+                        @Field("jml") jml : String,
+                        @Field("tgl") tgl: String,
+                        @Field("idtrans") idtrans: String): Call<CrudTrans>
 
 
 

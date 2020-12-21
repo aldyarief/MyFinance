@@ -60,7 +60,8 @@ class Transaksi : AppCompatActivity() {
             val jml = jmlTrans!!.text.toString().trim { it <= ' ' }
             val namkat = katid!!.text.toString().trim { it <= ' ' }
             val tgl = txDate!!.text.toString().trim { it <= ' ' }
-            ConfigNetwork.getRetrofit(server!!).getInsertTrans(action!!, namkat!!, jml!!,tgl!!).enqueue(object : Callback<com.example.myfinance.data.CrudTrans> {
+            val idtrans ="-"
+            ConfigNetwork.getRetrofit(server!!).getInsertTrans(action!!, namkat!!, jml!!,tgl!!,idtrans!!).enqueue(object : Callback<com.example.myfinance.data.CrudTrans> {
                 override fun onResponse(call: Call<CrudTrans>, response: Response<CrudTrans>) {
                     Log.d("response server", response.message())
 
